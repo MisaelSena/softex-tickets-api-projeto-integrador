@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  email         String    @unique @db.VarChar(100)
+  name          String    @db.VarChar(50)
+  phone         String?
+  role          Role      @default(CUSTOMER)
+  commenterText String?   //Colocado como opcional apenas para executar a migration sem definif um valor padrão.
+  password_hash String
+  created_at    DateTime  @default(now())
+  updated_at    DateTime?
+  deleted_at    DateTime?
+  tickets       Ticket[]
+  comments      Comment[]
+
+  @@map("users")
+}
+
+model Category{
+  id             Int        @id @default(autoincrement())
+  name           String     @db.VarChar(50)
+  description    String?
+  commenter_text String
+  resolved_at    DateTime?
+  created_at     DateTime   @default(now())
+  updated_at     DateTime? 
+  deleted_at     DateTime?
+  tickets        Ticket[]
+
+  @@map("categories")
+}
+
+model Comment{
+  id             Int       @id @default(autoincrement())
+  commenter_text String
+  created_at     DateTime  @default(now())
+  updated_at     DateTime?
+  deleted_at     DateTime?
+  ticket_id      Int
+  ticket         Ticket    @relation(fields: [ticket_id], references: [id])
+  commenter_id   Int
+  user           User      @relation(fields: [commenter_id], references: [id])
+
+  @@map("comments")
+}
+
+model Ticket {
+  id             Int      @id @default(autoincrement())
+  title          String   @db.VarChar(100)
+  description    String
+  category_id    Int
+  category       Category @relation(fields: [category_id], references: [id])
+  status         Status   @default(OPEN)
+  assignee_id    Int?
+  creator_id Int
+  creator           User     @relation(fields: [creator_id], references: [id]) 
+  commenter_text String?//Autor Misael: Deixei como opcional para debatermos sobre a funcionalidade deste atributo   
+  created_at     DateTime  @default(now())
+  updated_at     DateTime?
+  deleted_at     DateTime?
+  comments       Comment[]
+
+  @@map("tickets")
+}
+
+enum Status {
+    OPEN
+    IN_PROGRESS
+    RESOLVED
+    CLOSED
+  }
+
+enum Role {
+    CUSTOMER
+    AGENT
+    ADMIN
+}

@@ -1,0 +1,85 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Ações em Tickets",
+    "dateExported": "2023-12-25T20:40:46.671Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "f1940a79-e86a-4e50-9409-a5316a6356dd",
+            "colId": "1fa3dcd5-302b-4aaa-a6f2-c518bcb53f56",
+            "containerId": "",
+            "name": "Criar Ticket",
+            "url": "http://localhost:3000/ticket/create",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-12-24T01:15:06.740Z",
+            "modified": "2023-12-24T01:38:58.020Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\":\"Trocar Fonte\",\n  \"description\":\"Trocar fonte\",\n  \"category_id\":1,\n  \"user_id\":1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "149cdaa5-9a84-4140-9943-d2f69abadc91",
+            "colId": "1fa3dcd5-302b-4aaa-a6f2-c518bcb53f56",
+            "containerId": "",
+            "name": "Listar Tickets",
+            "url": "http://localhost:3000/ticket/view",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-12-24T13:34:37.866Z",
+            "modified": "2023-12-24T15:15:04.457Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"status\":\"OPEN\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ac708587-0acf-436d-b429-a94e07077fc8",
+            "colId": "1fa3dcd5-302b-4aaa-a6f2-c518bcb53f56",
+            "containerId": "",
+            "name": "Atribuir AGENT ao Ticket",
+            "url": "http://localhost:3000/ticket/assigneeAgentTicket",
+            "method": "PATCH",
+            "sortNum": 40000,
+            "created": "2023-12-25T19:55:44.114Z",
+            "modified": "2023-12-25T20:09:50.658Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"ticket_id\": 1, \n  \"assignee_id\":1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "6f640cd2-2816-4e49-a7ac-4856f63cd2df",
+            "colId": "1fa3dcd5-302b-4aaa-a6f2-c518bcb53f56",
+            "containerId": "",
+            "name": "Atualizar Status do Ticket",
+            "url": "http://localhost:3000/ticket/updateStatusTicket",
+            "method": "PATCH",
+            "sortNum": 50000,
+            "created": "2023-12-25T20:37:22.228Z",
+            "modified": "2023-12-25T20:40:00.653Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"ticket_id\": 2, \n  \"assignee_id\":1,\n  \"status\":\"CLOSED\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

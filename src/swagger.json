@@ -290,6 +290,31 @@
                     }
                 }
             }                
+        },
+        "/ticket/assigneeAgentTicket/{ticket_id}":{
+            "patch":{
+                "summary":"Atribuir AGENT ao Ticket",
+                "description":"Rota para atribuir AGENT ao Ticket",
+                "tags":["Tickets"],
+                "security":[{"bearerAuth":[]}],
+                "parameters":[{
+                    "name":"ticket_id",
+                    "in":"path",
+                    "description":"ID do Ticket",
+                    "required":true
+                }],                
+                "responses":{
+                    "200":{
+                        "description":"Success"
+                    },
+                    "404":{
+                        "description":"Ticket não encontrado!"
+                    },                    
+                    "400":{
+                        "description":"Erro ao atribuir Ticket ao AGENT!"
+                    }
+                }
+            }
         }
     },
     "components":{

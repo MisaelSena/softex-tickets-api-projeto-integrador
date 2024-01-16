@@ -5,7 +5,11 @@
       "version": "1.0.0",
       "description": "Projeto Integrador FAP Backend - Tickets API"
     },
-    "servers":[    
+    "servers":[
+        {
+            "url":"http://localhost:3000",
+            "description": "API em deploy no render"
+        },    
         {
             "url":"https://softex-tickets-api.onrender.com",
             "description": "API em deploy no render"
@@ -24,13 +28,33 @@
                                 "$ref":"#/components/schemas/User"
                             },
                             "examples":{
-                                "User":{
+                                "ADMIN":{
                                     "value":{
                                         "name":"Roberto Carlos",
                                         "email":"emailexemplo@gmail.com",                                        
                                         "phone":"999999999",
                                         "password":"123",
                                         "role":"ADMIN",
+                                        "commenterText":"Exemplo"
+                                    }
+                                },
+                                "AGENT":{
+                                    "value":{
+                                        "name":"Amado Batista",
+                                        "email":"emailexemplo2@gmail.com",                                        
+                                        "phone":"8888888888",
+                                        "password":"123",
+                                        "role":"AGENT",
+                                        "commenterText":"Exemplo"
+                                    }
+                                },
+                                "CUSTOMER":{
+                                    "value":{
+                                        "name":"Reginaldo Rossi",
+                                        "email":"emailexemplo3@gmail.com",                                        
+                                        "phone":"8888888888",
+                                        "password":"123",
+                                        "role":"CUSTOMER",
                                         "commenterText":"Exemplo"
                                     }
                                 }

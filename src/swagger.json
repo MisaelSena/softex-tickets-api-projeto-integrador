@@ -5,11 +5,7 @@
       "version": "1.0.0",
       "description": "Projeto Integrador FAP Backend - Tickets API"
     },
-    "servers":[
-        {
-            "url":"http://localhost:3000/",
-            "description": "API de testes"
-        },
+    "servers":[    
         {
             "url":"https://softex-tickets-api.onrender.com",
             "description": "API em deploy no render"

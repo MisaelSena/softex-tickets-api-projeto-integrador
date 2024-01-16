@@ -80,6 +80,7 @@ class TicketController{
                         id: true,
                         title: true,
                         description: true,
+                        status:true,
                         category: {select:{
                             id: true,
                             name: true,
@@ -105,6 +106,7 @@ class TicketController{
                     id: true,
                     title: true,
                     description: true,
+                    status:true,
                     category: {select:{
                         id: true,
                         name: true,
@@ -171,20 +173,22 @@ class TicketController{
     }
     //Autor Misael: Atualização de Status do Ticket
     async updateStatusTicket(req: Request, res: Response){
-        const {ticket_id, status} = req.body;
+        const {ticket_id} = req.params;
+        const {status} = req.body;
         const userAuth = res.locals.user as User;
         const assignee_id = userAuth.id;
 
         try {
-            const ticket = await prisma.ticket.findUnique({where:{id:ticket_id}});
+            const ticket = await prisma.ticket.findUnique({where:{id:+ticket_id}});
             const assignee = await prisma.user.findUnique({where:{id:assignee_id}});
             
-            if (!ticket || ticket.deleted_at === null) {
+            if (!ticket || !ticket.deleted_at === null) {
+                console.log(ticket_id)
                 return res.status(404).json({ message: "Ticket não encontrado!" });
                 };
             
             if (ticket.assignee_id !== assignee_id) {
-                return res.status(400).json({ message: "Você não é o AGENT deste Ticket!" });
+                return res.status(403).json({ message: "Você não é o AGENT deste Ticket!" });
             };
 
             if (!assignee) {
@@ -200,7 +204,7 @@ class TicketController{
                 };
             
             const updatedTicket = await prisma.ticket.update({
-                where:{id:ticket_id},
+                where:{id:+ticket_id},
                 data:{                    
                     status,
                     updated_at: new Date(),
@@ -219,12 +223,12 @@ class TicketController{
 
     //Autor Misael: Deletar Ticket
     async deleteTicket(req: Request, res: Response){
-        const {ticket_id} = req.body;
+        const {ticket_id} = req.params;
         const userAuth = res.locals.user as User;
         const user_id = userAuth.id;
 
         try {
-            const ticket = await prisma.ticket.findUnique({where:{id:ticket_id}});
+            const ticket = await prisma.ticket.findUnique({where:{id:+ticket_id}});
             const user_admin = await prisma.user.findUnique({where:{id:user_id}});
 
             if (!ticket || ticket.deleted_at) {
@@ -238,7 +242,7 @@ class TicketController{
             }
 
             const deletedTicket = await prisma.ticket.update({
-                where:{id:ticket_id},
+                where:{id:+ticket_id},
                 data:{                 
                     deleted_at: new Date(),
                 },

@@ -12,9 +12,9 @@ export const TicketRoutes = ():Router=>{
     //Autor Misael: Rota para atribuir AGENT ao Ticket
     router.patch('/assigneeAgentTicket/:ticket_id',validationAuth,TicketController.assignAgentTicket);
     //Autor Misael: Rota para atualização de Status do Ticket
-    router.patch('/updateStatusTicket',validationAuth,TicketController.updateStatusTicket);
+    router.patch('/updateStatusTicket/:ticket_id',validationAuth,TicketController.updateStatusTicket);
     //Autor Misael: Rota para ADMIN deletar Ticket
-    router.delete('/deleteTicket',validationAuth,TicketController.deleteTicket);
+    router.delete('/deleteTicket/:ticket_id',validationAuth,TicketController.deleteTicket);
 
     return router;
 }

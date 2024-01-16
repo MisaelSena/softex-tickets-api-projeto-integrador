@@ -5,11 +5,7 @@
       "version": "1.0.0",
       "description": "Projeto Integrador FAP Backend - Tickets API"
     },
-    "servers":[
-        {
-            "url":"http://localhost:3000",
-            "description": "API em deploy no render"
-        },    
+    "servers":[            
         {
             "url":"https://softex-tickets-api.onrender.com",
             "description": "API em deploy no render"
@@ -293,8 +289,8 @@
         },
         "/ticket/assigneeAgentTicket/{ticket_id}":{
             "patch":{
-                "summary":"Atribuir AGENT ao Ticket",
-                "description":"Rota para atribuir AGENT ao Ticket",
+                "summary":"Atribuir AGENT logado ao Ticket",
+                "description":"Rota para atribuir AGENT logado ao Ticket",
                 "tags":["Tickets"],
                 "security":[{"bearerAuth":[]}],
                 "parameters":[{
@@ -312,6 +308,82 @@
                     },                    
                     "400":{
                         "description":"Erro ao atribuir Ticket ao AGENT!"
+                    }
+                }
+            }
+        },
+        "/ticket/updateStatusTicket/{ticket_id}":{
+            "patch":{
+                "summary":"Atualização de Status do Ticket",
+                "description":"Rota para Atualização de Status do Ticket",
+                "tags":["Tickets"],
+                "security":[{"bearerAuth":[]}],
+                "parameters":[{
+                    "name":"ticket_id",
+                    "in":"path",
+                    "description":"ID do Ticket",
+                    "required":true
+                }],
+                "requestBody":{
+                    "content":{
+                        "application/json":{                            
+                            "examples":{
+                                "RESOLVED":{
+                                    "value":{                                        
+                                        "status":"RESOLVED"
+                                    }
+                                },
+                                "CLOSED":{
+                                    "value":{                                        
+                                        "status":"CLOSED"
+                                    }
+                                },
+                                "IN_PROGRESS":{
+                                    "value":{                                        
+                                        "status":"IN_PROGRESS"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },                
+                "responses":{
+                    "200":{
+                        "description":"Success"
+                    },
+                    "404":{
+                        "description":"Ticket não encontrado!"
+                    },
+                    "403":{
+                        "description":"Usuário não tem permissão para atualizar o ticket!"
+                    },                    
+                    "400":{
+                        "description":"Erro ao atribuir Ticket ao AGENT!"
+                    }
+                }
+            }
+        },
+        "/ticket/deleteTicket/{ticket_id}":{
+            "delete":{
+                "summary":"ADMIN deletar Ticket",
+                "description":"Rota para ADMIN deletar Ticket",
+                "tags":["Tickets"],
+                "security":[{"bearerAuth":[]}],
+                "parameters":[{
+                    "name":"ticket_id",
+                    "in":"path",
+                    "description":"ID do Ticket",
+                    "required":true
+                }],                
+                "responses":{
+                    "200":{
+                        "description":"Success"
+                    },
+                    "404":{
+                        "description":"Ticket não encontrado!"
+                    },                    
+                    "403":{
+                        "description":"Você não tem premissão de ADMIN para deleter o Ticket!"
                     }
                 }
             }

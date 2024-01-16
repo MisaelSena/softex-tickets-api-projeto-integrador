@@ -244,6 +244,53 @@
                     }
                 }
             }                
+        },
+        "/ticket/view/{status}":{
+            "get":{
+                "summary":"Listagem de Tickets",
+                "description":"Rota para Listagem de Tickets",
+                "tags":["Tickets"],
+                "security":[{"bearerAuth":[]}],
+                "parameters":[{
+                    "name":"status",
+                    "in":"path",
+                    "description":"Status do Ticket",
+                    "required":true,
+                    "examples":{
+                        "ALL": {
+                            "value": "ALL",
+                            "summary": "ALL"
+                          },
+                          "OPEN": {
+                            "value": "OPEN",
+                            "summary": "OPEN"
+                          },
+                          "IN_PROGRESS": {
+                            "value": "IN_PROGRESS",
+                            "summary": "IN_PROGRESS"
+                          },
+                          "RESOLVED": {
+                            "value": "RESOLVED",
+                            "summary": "RESOLVED"
+                          },
+                          "CLOSED": {
+                            "value": "CLOSED",
+                            "summary": "CLOSED"
+                          }
+                    }
+                }],                
+                "responses":{
+                    "200":{
+                        "description":"Success"
+                    },                    
+                    "404":{
+                        "description":"Nenhum Ticket com Status pesquisado"
+                    },
+                    "400":{
+                        "description":"Erro ao Listar Tickets!"
+                    }
+                }
+            }                
         }
     },
     "components":{

@@ -254,11 +254,10 @@
                 "parameters":[{
                     "name":"status",
                     "in":"path",
-                    "description":"Status do Ticket",
-                    "required":true,
+                    "description":"Status do Ticket",                    
                     "examples":{
                         "ALL": {
-                            "value": "ALL",
+                            "value": "",
                             "summary": "ALL"
                           },
                           "OPEN": {

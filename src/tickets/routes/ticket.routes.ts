@@ -7,8 +7,8 @@ export const TicketRoutes = ():Router=>{
     const router = Router();
 
     router.post('/create',validationAuth,validateCreateTicketMiddleware,TicketController.createTicket);
-    //Autor Misael: Para Listar os Tickets pelo status, passe o parâmetro pelo body.
-    router.get('/view',validationAuth,TicketController.listAllTickets);
+    //Autor Misael: Para Listar os Tickets pelo status, passe o parâmetro pels url.
+    router.get('/view/:status?',validationAuth,TicketController.listAllTickets);
     //Autor Misael: Rota para atribuir AGENT ao Ticket
     router.patch('/assigneeAgentTicket',validationAuth,TicketController.assignAgentTicket);
     //Autor Misael: Rota para atualização de Status do Ticket

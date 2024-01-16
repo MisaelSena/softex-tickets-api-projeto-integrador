@@ -1,4 +1,4 @@
-import { PrismaClient, User } from "@prisma/client";
+import { PrismaClient, Status, User } from "@prisma/client";
 import { Request, Response } from "express";
 import z from "zod";
 
@@ -67,9 +67,9 @@ class TicketController{
 
     //Autor Misael: Listagem de Todos os Tickets ou por status.
     async listAllTickets (req: Request, res: Response){
-        const status = req.body.status;
+        const status = req.params.status as Status;
         try {
-            if (!status){
+            if (!(status==="OPEN"||status==="IN_PROGRESS"||status==="RESOLVED"||status==="CLOSED")){
                 const allTickets = await prisma.ticket.findMany({
                     where:{
                         deleted_at: {
@@ -123,6 +123,7 @@ class TicketController{
 
         } catch (error) {
             console.log(error, "Erro ao Listar Tickets!");
+            console.log(status)            
             await prisma.$disconnect();
             return res.status(400).json({ message: "Erro ao Listar Tickets!" });
         }

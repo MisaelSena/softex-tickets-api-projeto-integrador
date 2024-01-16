@@ -108,6 +108,20 @@
             }                
         },
         "/categories":{
+            "get":{
+                "summary":"Listagem de Categorias",
+                "description":"Rota para Listagem de Categorias",
+                "tags":["Categorias"],
+                "security":[{"bearerAuth":[]}],
+                "responses":{
+                    "200":{
+                        "description":"Success"
+                    },                    
+                    "400":{
+                        "description":"Error to get categories"
+                    }
+                }
+            },
             "post":{
                 "summary":"Criação de Categorias",
                 "description":"Rota para Criação de Categorias",
@@ -139,7 +153,63 @@
                         "description":"Internal server error!"
                     }
                 }
-            }                
+            }                            
+        },
+        "/category/{id}":{
+            "patch":{
+                "summary":"Atualização de Categorias",
+                "description":"Rota para Atualização de Categorias",
+                "tags":["Categorias"],
+                "security":[{"bearerAuth":[]}],
+                "parameters":[{
+                    "name":"id",
+                    "in":"path",
+                    "description":"ID da categoria para atualização",
+                    "required":true
+                }],
+                "requestBody":{
+                    "content":{
+                        "application/json":{                           
+                            "examples":{
+                                "Catedoria":{
+                                    "value":{                                        
+                                        "name":"TI",                                     
+                                        "description":"Departamento de Tecnologia da Informação"                                          
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Category updated"
+                    },                    
+                    "500":{
+                        "description":"Internal server error!"
+                    }
+                }
+            },
+            "delete":{
+                "summary":"Deletar Categoria",
+                "description":"Rota para Deletar Categoria",
+                "tags":["Categorias"],
+                "security":[{"bearerAuth":[]}],
+                "parameters":[{
+                    "name":"id",
+                    "in":"path",
+                    "description":"ID da categoria para atualização",
+                    "required":true
+                }],                
+                "responses":{
+                    "200":{
+                        "description":"Category updated"
+                    },                    
+                    "500":{
+                        "description":"Internal server error!"
+                    }
+                }
+            }
         },
         "/ticket/create":{
             "post":{

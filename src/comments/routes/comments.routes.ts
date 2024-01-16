@@ -9,25 +9,25 @@ export const commentsRoutes = (): Router => {
   const router = Router();
 
   router.post(
-    "/tickets/:ticket_id/comments",
+    "/tickets/:ticketId/comments",
     validationAuth,
     commentsPost.createComment
   );
 
   router.get(
-    "/tickets/:ticket_id/comments",
+    "/tickets/:ticketId/comments",
     validationAuth,
     commentsGet.getComments
   );
 
   router.patch(
-    "/tickets/:ticket_id/comments/:commentId",
+    "/tickets/:ticketId/comments/:commentId",
     validationAuth,
     commentsPatch.updateComment
   );
 
   router.delete(
-    "/tickets/:ticket_id/comments/:commentId",
+    "/tickets/:ticketId/comments/:commentId",
     validationAuth,
     commentsDelete.deleteComment
   );

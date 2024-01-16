@@ -12,8 +12,8 @@ export const categoriesRoutes = (): Router => {
 
     router.post("/categories", validationAuth, categoryPost.createCategory);
     router.get("/categories", validationAuth, categoryGet.getCategories);
-    router.patch("/category/:categoryId", validationAuth, categoryPatch.updateCategory);
-    router.delete("/category/:categoryId", validationAuth, categoryDelete.deleteCategory);
+    router.patch("/category/:id", validationAuth, categoryPatch.updateCategory);
+    router.delete("/category/:id", validationAuth, categoryDelete.deleteCategory);
 
     return router;
 };

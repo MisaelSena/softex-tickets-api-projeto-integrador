@@ -26,7 +26,7 @@ class CategoryDelete {
                     deleted_at: new Date(),
                 }
             });
-            return res.status(200).json({message:"Post deleted"});
+            return res.status(200).json({message:"Category deleted"});
         }catch(error) {
             if (error instanceof ZodError) {
                 return res 

@@ -1,0 +1,232 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Tickets API",
+      "version": "1.0.0",
+      "description": "Projeto Integrador FAP Backend - Tickets API"
+    },
+    "servers":[
+        {
+            "url":"http://localhost:3000/",
+            "description": "API de testes"
+        },
+        {
+            "url":"https://softex-tickets-api.onrender.com",
+            "description": "API em deploy no render"
+        }        
+    ],
+    "paths":{
+        "/user/create":{
+            "post":{
+                "summary":"Cadastrar Usuário",
+                "description":"Rota para cadastro de usuários",
+                "tags":["User"],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/User"
+                            },
+                            "examples":{
+                                "User":{
+                                    "value":{
+                                        "name":"Roberto Carlos",
+                                        "email":"emailexemplo@gmail.com",                                        
+                                        "phone":"999999999",
+                                        "password":"123",
+                                        "role":"ADMIN",
+                                        "commenterText":"Exemplo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description":"Usuário criado com sucesso"
+                    },
+                    "400":{
+                        "description":"Erro ao criar usuário"
+                    }
+                }
+            }
+        },
+        "/login":{
+            "post":{
+                "summary":"Login de Usuário",
+                "description":"Rota para Login de usuário",
+                "tags":["Login"],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Login"
+                            },
+                            "examples":{
+                                "Login":{
+                                    "value":{                                        
+                                        "email":"emailexemplo@gmail.com",                                     
+                                        "password":"123"  
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Login realizado com sucesso!"
+                    },
+                    "401":{
+                        "description":"Usuário ou Senha inválidos!"
+                    },
+                    "500":{
+                        "description":"Erro na autenticação de usuário"
+                    }
+                }
+            }                
+        },
+        "/categories":{
+            "post":{
+                "summary":"Criação de Categorias",
+                "description":"Rota para Criação de Categorias",
+                "tags":["Categorias"],
+                "security":[{"bearerAuth":[]}],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Categorias"
+                            },
+                            "examples":{
+                                "Catedoria":{
+                                    "value":{                                        
+                                        "name":"TI",                                     
+                                        "description":"Departamento de TI",
+                                        "commenter_text":"Manutenção em Computadores"  
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description":"Category created!"
+                    },                    
+                    "500":{
+                        "description":"Internal server error!"
+                    }
+                }
+            }                
+        },
+        "/ticket/create":{
+            "post":{
+                "summary":"Criação de Tickets",
+                "description":"Rota para Criação de Tickets",
+                "tags":["Tickets"],
+                "security":[{"bearerAuth":[]}],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Tickets"
+                            },
+                            "examples":{
+                                "Ticket":{
+                                    "value":{                                        
+                                        "title":"Formatar Notebook",                                     
+                                        "description":"Por favor Formatar Notebook do escritório",
+                                        "category_id":1  
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description":"Ticket criado com sucesso!"
+                    },                    
+                    "400":{
+                        "description":"Erro ao criar ticket"
+                    }
+                }
+            }                
+        }
+    },
+    "components":{
+        "schemas":{
+            "User":{
+                "type":"object",
+                "properties":{
+                    "name":{
+                        "type":"string"
+                    },
+                    "email":{
+                        "type":"string"
+                    },
+                    "phone":{
+                        "type":"string"
+                    },
+                    "password":{
+                        "type":"string"
+                    },
+                    "role":{
+                        "type":"string"
+                    },
+                    "commenterText":{
+                        "type":"string"
+                    }
+                }
+            },
+            "Login":{
+                "type":"object",
+                "properties":{
+                    "email":{
+                        "type":"string"
+                    },
+                    "password":{
+                        "type":"string"
+                    }
+                }
+            },
+            "Categorias":{
+                "type":"object",
+                "properties":{
+                    "name":{
+                        "type":"string"
+                    },
+                    "description":{
+                        "type":"string"
+                    },
+                    "commenter_text":{
+                        "type":"string"
+                    }
+                }
+            },
+            "Tickets":{
+                "type":"object",
+                "properties":{
+                    "title":{
+                        "type":"string"
+                    },
+                    "description":{
+                        "type":"string"
+                    },
+                    "category_id":{
+                        "type":"integer"
+                    }
+                }
+            }
+        },
+        "securitySchemes":{
+            "bearerAuth":{
+                "type":"http",
+                "scheme":"bearer",
+                "bearerFormat":"JWT"
+            }
+        }
+    }
+}

@@ -131,12 +131,12 @@ class TicketController{
     //Autor Misael: Atribuição de AGENT ao ticket
     async assignAgentTicket(req: Request, res: Response){
 
-        const {ticket_id} = req.body;
+        const {ticket_id} = req.params;
         const userAuth = res.locals.user as User;
         const assignee_id = userAuth.id;
 
         try {
-            const ticket = await prisma.ticket.findUnique({where:{id:ticket_id}});
+            const ticket = await prisma.ticket.findUnique({where:{id:+ticket_id}});
             const assignee = await prisma.user.findUnique({where:{id:assignee_id}});
             
             if (!ticket) {
@@ -153,7 +153,7 @@ class TicketController{
             
 
             const assigneeTicket = await prisma.ticket.update({
-                where:{id:ticket_id},
+                where:{id:+ticket_id},
                 data:{
                     assignee_id,
                     status:"IN_PROGRESS",

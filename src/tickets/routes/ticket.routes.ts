@@ -10,7 +10,7 @@ export const TicketRoutes = ():Router=>{
     //Autor Misael: Para Listar os Tickets pelo status, passe o parâmetro pels url.
     router.get('/view/:status?',validationAuth,TicketController.listAllTickets);
     //Autor Misael: Rota para atribuir AGENT ao Ticket
-    router.patch('/assigneeAgentTicket',validationAuth,TicketController.assignAgentTicket);
+    router.patch('/assigneeAgentTicket/:ticket_id',validationAuth,TicketController.assignAgentTicket);
     //Autor Misael: Rota para atualização de Status do Ticket
     router.patch('/updateStatusTicket',validationAuth,TicketController.updateStatusTicket);
     //Autor Misael: Rota para ADMIN deletar Ticket

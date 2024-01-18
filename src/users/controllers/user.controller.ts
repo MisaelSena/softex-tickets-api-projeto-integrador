@@ -23,6 +23,14 @@ class UserController{
         try {
 
             userSchema.parse({email, name, phone, password, role, commenterText});
+
+            const existingUser = await prisma.user.findUnique({
+                where: { email },
+              });
+            
+              if (existingUser) {
+                return res.status(409).json({ error: 'EmailAlreadyExists', message: 'O endereço de e-mail já está em uso por outro usuário.' });
+              }           
             
             const user = await prisma.user.create({
                 data:{

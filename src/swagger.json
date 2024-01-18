@@ -5,7 +5,11 @@
       "version": "1.0.0",
       "description": "Projeto Integrador FAP Backend - Tickets API"
     },
-    "servers":[            
+    "servers":[ 
+        {
+            "url":"http://localhost:3000/",
+            "description": "API local"
+        },           
         {
             "url":"https://softex-tickets-api.onrender.com",
             "description": "API em deploy no render"
@@ -61,6 +65,9 @@
                 "responses":{
                     "201":{
                         "description":"Usuário criado com sucesso"
+                    },
+                    "409":{
+                        "description":"O endereço de e-mail já está em uso por outro usuário."
                     },
                     "400":{
                         "description":"Erro ao criar usuário"

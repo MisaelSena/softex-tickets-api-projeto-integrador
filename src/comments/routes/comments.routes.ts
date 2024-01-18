@@ -15,7 +15,7 @@ export const commentsRoutes = (): Router => {
   );
 
   router.get(
-    "/tickets/:ticketId/comments",
+    "/tickets/comments/:ticketId",
     validationAuth,
     commentsGet.getComments
   );
@@ -27,7 +27,7 @@ export const commentsRoutes = (): Router => {
   );
 
   router.delete(
-    "/tickets/:ticketId/comments/:commentId",
+    "/tickets/comments/:ticketId/:commentId",
     validationAuth,
     commentsDelete.deleteComment
   );

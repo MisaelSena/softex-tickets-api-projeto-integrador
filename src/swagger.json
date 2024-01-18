@@ -5,11 +5,7 @@
       "version": "1.0.0",
       "description": "Projeto Integrador FAP Backend - Tickets API"
     },
-    "servers":[ 
-        {
-            "url":"http://localhost:3000/",
-            "description": "API local"
-        },           
+    "servers":[                  
         {
             "url":"https://softex-tickets-api.onrender.com",
             "description": "API em deploy no render"
@@ -394,6 +390,150 @@
                     }
                 }
             }
+        },
+        "/tickets/{ticketId}/comments":{
+            "post":{
+                "summary":"Criação de comentário no ticket",
+                "description":"Rota para Criação de comentário no ticket",
+                "tags":["Comments"],
+                "security":[{"bearerAuth":[]}],
+                "parameters":[{
+                    "name":"ticketId",
+                    "in":"path",
+                    "description":"ID do Ticket",
+                    "required":true
+                }],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Comments"
+                            },
+                            "examples":{
+                                "Comment":{
+                                    "value":{                                        
+                                        "commenter_text":"O Notebook será formatado na sexta."     
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description":"Comment created"
+                    },                    
+                    "400":{
+                        "description":"Internal server error"
+                    }
+                }
+            }                
+        },
+        "/tickets/comments/{ticketId}":{
+            "get":{
+                "summary":"Listagem de comentários no ticket",
+                "description":"Rota para Listagem de comentários no ticket",
+                "tags":["Comments"],
+                "security":[{"bearerAuth":[]}],
+                "parameters":[{
+                    "name":"ticketId",
+                    "in":"path",
+                    "description":"ID do Ticket",
+                    "required":true
+                }],                
+                "responses":{
+                    "200":{
+                        "description":"Success"
+                    },                    
+                    "500":{
+                        "description":"Internal server error"
+                    }
+                }
+            }                
+        },
+        "/tickets/{ticketId}/comments/{commentId}":{
+            "patch":{
+                "summary":"Atualização de comentário no ticket",
+                "description":"Rota para Atualização de comentário no ticket",
+                "tags":["Comments"],
+                "security":[{"bearerAuth":[]}],
+                "parameters":[{
+                    "name":"ticketId",
+                    "in":"path",
+                    "description":"ID do Ticket",
+                    "required":true
+                },
+                {
+                    "name":"commentId",
+                    "in":"path",
+                    "description":"ID do Comentário",
+                    "required":true
+                }],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/Comments"
+                            },
+                            "examples":{
+                                "Comment":{
+                                    "value":{                                        
+                                        "commenter_text":"O Notebook será formatado na Segunda."     
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Comment updated"
+                    },
+                    "400":{
+                        "description":"Comment not found"
+                    },
+                    "401":{
+                        "description":"Unauthorized"
+                    },                    
+                    "500":{
+                        "description":"Internal server error"
+                    }
+                }
+            }                
+        },
+        "/tickets/comments/{ticketId}/{commentId}":{
+            "delete":{
+                "summary":"Remoção de comentário no ticket",
+                "description":"Rota para Remoção de comentário no ticket",
+                "tags":["Comments"],
+                "security":[{"bearerAuth":[]}],
+                "parameters":[{
+                    "name":"ticketId",
+                    "in":"path",
+                    "description":"ID do Ticket",
+                    "required":true
+                },
+                {
+                    "name":"commentId",
+                    "in":"path",
+                    "description":"ID do Comentário",
+                    "required":true
+                }],                
+                "responses":{
+                    "200":{
+                        "description":"Comment deleted"
+                    },
+                    "400":{
+                        "description":"Comment not found"
+                    },
+                    "401":{
+                        "description":"Unauthorized"
+                    },                    
+                    "500":{
+                        "description":"Internal server error"
+                    }
+                }
+            }                
         }
     },
     "components":{
@@ -456,6 +596,20 @@
                         "type":"string"
                     },
                     "category_id":{
+                        "type":"integer"
+                    }
+                }
+            },
+            "Comments":{
+                "type":"object",
+                "properties":{
+                    "commenter_text":{
+                        "type":"string"
+                    },
+                    "ticketId":{
+                        "type":"integer"
+                    },
+                    "commenter_id":{
                         "type":"integer"
                     }
                 }
